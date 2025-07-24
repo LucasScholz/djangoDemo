@@ -14,7 +14,7 @@ def todos(request):
     items = TodoItem.objects.all()
     return render(request, "todos.html", {"todos": items})
 
-def add_todo(request):
+def add(request):
     if (request.method == 'POST'):
         form = TodoItemForm(request.POST)
         if form.is_valid():
@@ -22,7 +22,7 @@ def add_todo(request):
             return redirect('todos')
     else:
         form = TodoItemForm()
-    return render(request, 'add_todo.html', {'form': form})
+    return render(request, 'add.html', {'form': form})
 
 
 def toggle_todo(request, todo_id):
