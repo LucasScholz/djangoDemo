@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import TodoItem
 from .forms import TodoItemForm
 
@@ -23,3 +23,11 @@ def add_todo(request):
     else:
         form = TodoItemForm()
     return render(request, 'add_todo.html', {'form': form})
+
+
+def toggle_todo(request, todo_id):
+    todo = get_object_or_404(TodoItem, id =todo_id)
+    if request.method == 'POST':
+        todo.completed = "completed" in request.POST
+        todo.save()
+    return redirect("todos")

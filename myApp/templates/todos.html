@@ -1,10 +1,15 @@
-{% extends "base.html" %} {% block content %}
-<h1> Todo List </h1>
+{% extends "base.html" %}
+{% block content %}
+<h1>Todo Liste Übersicht:</h1>
 <ul>
     {% for todo in todos %}
-    <li>
-        {{ todo.title }}: {% if todo.completed %} Completed {% else %} Not Completed {% endif %}
-    </li>
+        <form method="POST" action="{% url 'toggle_todo' todo.id %}">
+            {% csrf_token %}
+            <label>
+                <input type="checkbox" name="completed" onchange="this.form.submit()" {% if todo.completed %}checked{% endif %}>
+                {{ todo.title }}
+            </label>
+        </form>
     {% endfor %}
 </ul>
 {% endblock %}
