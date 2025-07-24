@@ -31,3 +31,10 @@ def toggle_todo(request, todo_id):
         todo.completed = "completed" in request.POST
         todo.save()
     return redirect("todos")
+
+
+def delete_todo(request, todo_id):
+    todo=get_object_or_404(TodoItem, id=todo_id)
+    if(request.method == 'POST'):
+        todo.delete()
+    return redirect("todos")

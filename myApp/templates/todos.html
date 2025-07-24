@@ -7,9 +7,19 @@
             {% csrf_token %}
             <label>
                 <input type="checkbox" name="completed" onchange="this.form.submit()" {% if todo.completed %}checked{% endif %}>
-                {{ todo.title }}
+                <span style="{% if todo.completed %}text-decoration: line-through;{% endif %}">
+                    {{ todo.title }}
+                </span>
             </label>
         </form>
+
+        <form method="POST" action="{% url 'delete_todo' todo.id %}">
+            {% csrf_token %}
+            <button type="submit">
+                Eintrag entfernen
+            </button>
+        </form>
+
     {% endfor %}
 </ul>
 {% endblock %}
